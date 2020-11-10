@@ -51,7 +51,7 @@ app.get('/profile/:username', async (req, res) => {
 
 app.get('/video/:video', async (req, res) => {
     const video = req.params.video
-    const videoMeta = await getVideoMeta(video, {});
+    const videoMeta = await getVideoMeta(video, {noWaterMark: true});
     console.log(videoMeta);
     res.send(videoMeta);
 });
