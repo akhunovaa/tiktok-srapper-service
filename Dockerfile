@@ -1,7 +1,7 @@
-FROM node:10.13.0-alpine
+FROM node:8.11-slim
 
 RUN mkdir -p /app
 WORKDIR /app
 COPY . /app
 
-CMD ts-node .
+CMD npm start
