@@ -9,6 +9,8 @@ pipeline {
         helmFilesDirectoryName = "helm/botmasterzzz-tiktok-srapper-service"
         remoteWorkSpace = "/home/jenkins/workspace"
         KUBECONFIG = "/home/jenkins/.kube/config"
+        dockerImageTag = "${env.DOCKER_IMAGE_TAG}"
+        replicaCount = "${env.REPLICA_COUNT}"
     }
 
     agent any
@@ -108,7 +110,7 @@ pipeline {
                     echo "Removing remote pre-build image: $registry:${currentBuild.previousBuild.getNumber()}"
                     sh "ssh root@$remoteHost docker rmi --force $registry:${currentBuild.previousBuild.getNumber()}"
                     echo "Installing via Helm an image: $registry via helm files from directory $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER"
-                    sh "ssh root@$remoteHost helm upgrade --install $dockerImageName $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER/$helmFilesDirectoryName --namespace dev"
+                    sh "ssh root@$remoteHost helm upgrade --install $dockerImageName $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER/$helmFilesDirectoryName --set replicaCount=$replicaCount --set image.appVersion=$dockerImageTag --namespace dev"
                 }
                 sh 'printenv'
             }
