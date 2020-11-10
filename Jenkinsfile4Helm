@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo 'Installing dependencies'
                 nodejs('Node 10.15.0 LTS') {
-                    sh 'npm install'
+                    sh 'npm install -D @types/progress'
                 }
             }
         }
