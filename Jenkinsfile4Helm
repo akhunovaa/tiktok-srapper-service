@@ -12,6 +12,7 @@ pipeline {
         dockerImageTag = "${env.DOCKER_IMAGE_TAG}"
         replicaCount = "${env.REPLICA_COUNT}"
         portForDeploy = get_port()
+        namespace4upgrade = "${env.UPGRADE_NAMESPACE}"
     }
 
     agent any
