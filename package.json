@@ -1,0 +1,28 @@
+{
+  "name": "botmasterzzz-tiktok-srapper-service",
+  "version": "1.0.0",
+  "description": "BotmasterZzz TikTOK REST API",
+  "author": "Azat Akhunov",
+  "license": "See in LICENSE",
+  "homepage": "https://botmasterzzz.com/",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "rm -rf dist/* && tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc && cp -rf package.json dist/package.json",
+    "prestart": "npm run build",
+    "start": "ts-node ."
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.3",
+    "ts-node": "^8.7.0",
+    "tsc": "^1.20150623.0",
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "tiktok-scraper": "^1.4.1"
+  }
+}
