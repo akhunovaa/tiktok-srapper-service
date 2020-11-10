@@ -1,6 +1,6 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
-import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta} from 'tiktok-scraper';
+import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, video} from 'tiktok-scraper';
 import {Video} from "./model/Video.model";
 
 const app = express();
@@ -50,11 +50,17 @@ app.get('/profile/:username', async (req, res) => {
     res.send(userInfo);
 });
 
-app.post('/video', async (req, res) => {
-    const video = req.body.video;
-    const videoMeta = await getVideoMeta(video, {noWaterMark: true});
-    console.log(videoMeta);
-    res.send(videoMeta);
+app.post('/video', async (req,res) => {
+    const videoUrl = req.body.videoUrl;
+    console.log(videoUrl);
+    try {
+        const videoMeta = await getVideoMeta(videoUrl, null);
+        console.log(videoMeta);
+        res.send(videoMeta);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
 
 
