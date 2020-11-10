@@ -9,10 +9,14 @@ pipeline {
         helmFilesDirectoryName = "helm/botmasterzzz-tiktok-srapper-service"
         remoteWorkSpace = "/home/jenkins/workspace"
         KUBECONFIG = "/home/jenkins/.kube/config"
-        dockerImageTag = "${env.DOCKER_IMAGE_TAG}"
-        replicaCount = "${env.REPLICA_COUNT}"
-        portForDeploy = get_port()
         namespace4upgrade = "${env.UPGRADE_NAMESPACE}"
+        dockerImageTag = "${env.DOCKER_IMAGE_TAG}"
+        portForDeploy = get_port()
+        portForNodePort = get_node_port()
+        profile4install = get_profile()
+        replicaCount = "${env.REPLICA_COUNT}"
+        volumeName = get_volume()
+        volumeClaimName = get_claim_volume()
     }
 
     agent any
@@ -62,15 +66,6 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                echo "Building image: $registry:$BUILD_NUMBER"
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
-        }
-
         stage('Push Docker Image') {
             steps {
                 echo "Pushing image: $registry:$BUILD_NUMBER"
@@ -112,9 +107,15 @@ pipeline {
                     echo "Removing remote pre-build image: $registry:${currentBuild.previousBuild.getNumber()}"
                     sh "ssh root@$remoteHost docker rmi --force $registry:${currentBuild.previousBuild.getNumber()}"
                     echo "Installing via Helm an image: $registry via helm files from directory $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER"
-                    sh "ssh root@$remoteHost helm upgrade --install $dockerImageName-$namespace4upgrade $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER/$helmFilesDirectoryName --namespace $namespace4upgrade --set image.appVersion=$dockerImageTag --set service.port=$portForDeploy --set replicaCount=$replicaCount"
+                    sh "ssh root@$remoteHost helm upgrade --install $dockerImageName-$namespace4upgrade $remoteWorkSpace/$dockerImageName-$BUILD_NUMBER/$helmFilesDirectoryName --namespace $namespace4upgrade --set image.appVersion=$dockerImageTag --set service.port=$portForDeploy --set replicaCount=$replicaCount --set database.nodePort=$portForNodePort --set env=$namespace4upgrade  --set volume.name=$volumeName --set volume.claim.name=$volumeClaimName"
                 }
                 sh 'printenv'
+            }
+        }
+
+        stage('Approval from Chuck Norris') {
+            steps {
+                chuckNorris()
             }
         }
     }
@@ -128,8 +129,64 @@ def get_port() {
         case 'master':
             return '7322'
         case 'prom':
-            return '7323'
+            return '7322'
         default:
             return '7321'
+    }
+}
+
+def get_node_port() {
+    def stend = "${env.UPGRADE_NAMESPACE}"
+    switch (stend) {
+        case 'dev':
+            return '30044'
+        case 'master':
+            return '30045'
+        case 'prom':
+            return '30046'
+        default:
+            return '30044'
+    }
+}
+
+def get_profile() {
+    def stend = "${env.UPGRADE_NAMESPACE}"
+    switch (stend) {
+        case 'dev':
+            return 'dev'
+        case 'master':
+            return 'master'
+        case 'prom':
+            return 'prod'
+        default:
+            return 'dev'
+    }
+}
+
+def get_volume() {
+    def stend = "${env.UPGRADE_NAMESPACE}"
+    switch (stend) {
+        case 'dev':
+            return 'file-repository-dev'
+        case 'master':
+            return 'file-repository-master'
+        case 'prom':
+            return 'file-repository-prom'
+        default:
+            return 'file-repository-dev'
+    }
+}
+
+def get_claim_volume() {
+    def stend = "${env.UPGRADE_NAMESPACE}"
+    switch (stend) {
+        case 'dev':
+            return 'yourapi-nfs-repository-claim-dev'
+        case 'master':
+            return 'yourapi-nfs-repository-claim-master'
+        case 'prom':
+            return 'yourapi-nfs-repository-claim-prom'
+        default:
+            return 'yourapi-nfs-repository-claim-dev'
     }
 }
