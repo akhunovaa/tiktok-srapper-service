@@ -23,6 +23,15 @@ pipeline {
             }
         }
 
+        stage('NPM TS-Node Install') {
+            steps {
+                echo 'Installing dependencies'
+                nodejs('Node 10.15.0 LTS') {
+                    sh 'npm install -g ts-node'
+                }
+            }
+        }
+
         stage('NPM Dependencies Install') {
             steps {
                 echo 'Installing dependencies'
