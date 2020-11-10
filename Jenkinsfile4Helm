@@ -11,6 +11,7 @@ pipeline {
         KUBECONFIG = "/home/jenkins/.kube/config"
         dockerImageTag = "${env.DOCKER_IMAGE_TAG}"
         replicaCount = "${env.REPLICA_COUNT}"
+        portForDeploy = get_port()
     }
 
     agent any
@@ -115,5 +116,19 @@ pipeline {
                 sh 'printenv'
             }
         }
+    }
+}
+
+def get_port() {
+    def stend = "${env.UPGRADE_NAMESPACE}"
+    switch (stend) {
+        case 'dev':
+            return '7321'
+        case 'master':
+            return '7322'
+        case 'prom':
+            return '7323'
+        default:
+            return '7321'
     }
 }
