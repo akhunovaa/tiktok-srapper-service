@@ -16,7 +16,7 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const tagValue = req.params.hashtag
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
-    const posts = await hashtag(tagValue, { number: cursor, noWaterMark: water, proxy: proxyList });
+    const posts = await hashtag(tagValue, { number: cursor, noWaterMark: true, proxy: proxyList });
     console.log(posts);
     res.send(posts);
 });
