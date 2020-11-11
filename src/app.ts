@@ -15,14 +15,14 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const tagValue = req.params.hashtag
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
-    const posts = await hashtag(tagValue, { number: cursor, noWaterMark: water });
+    const posts = await hashtag(tagValue, { number: cursor, noWaterMark: water, proxy: '82.81.169.142:80' });
     console.log(posts);
     res.send(posts);
 });
 
 app.get('/hashtag/:hashtag', async (req, res) => {
     const tagValue = req.params.hashtag
-    const tag = await getHashtagInfo(tagValue, {});
+    const tag = await getHashtagInfo(tagValue, {proxy: '82.81.169.142:80'});
     console.log(tag);
     res.send(tag);
 });
@@ -31,21 +31,21 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
     const username = req.params.username
     const count = req.params.count as unknown as number
     const byUserId = req.params.water as unknown as boolean
-    const posts = await user(username, { number: count, by_user_id: byUserId });
+    const posts = await user(username, { number: count, by_user_id: byUserId, proxy: '82.81.169.142:80' });
     console.log(posts);
     res.send(posts);
 });
 
 app.get('/trend/:count', async (req, res) => {
     const count = req.params.count as unknown as number
-    const posts = await trend('', { number: count });
+    const posts = await trend('', { number: count, proxy: '82.81.169.142:80' });
     console.log(posts);
     res.send(posts);
 });
 
 app.get('/profile/:username', async (req, res) => {
     const username = req.params.username
-    const userInfo = await getUserProfileInfo(username, {});
+    const userInfo = await getUserProfileInfo(username, {proxy: '82.81.169.142:80'});
     console.log(userInfo);
     res.send(userInfo);
 });
@@ -54,7 +54,7 @@ app.post('/video', async (req,res) => {
     const videoUrl = req.body.videoUrl;
     console.log(videoUrl);
     try {
-        const videoMeta = await getVideoMeta(videoUrl, null);
+        const videoMeta = await getVideoMeta(videoUrl, {proxy: '82.81.169.142:80'});
         console.log(videoMeta);
         res.send(videoMeta);
     } catch (error) {
