@@ -1,7 +1,7 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, video} from 'tiktok-scraper';
-import {Video} from "./model/Video.model";
+
 
 const app = express();
 app.use(bodyParser.json({
