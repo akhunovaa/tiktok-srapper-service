@@ -12,7 +12,7 @@ app.use(bodyParser.json({
 }));
 
 app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const tagValue = req.params.hashtag
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
@@ -22,7 +22,7 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
 });
 
 app.get('/hashtag/:hashtag', async (req, res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const tagValue = req.params.hashtag
     const tag = await getHashtagInfo(tagValue, {proxy: proxyList});
     console.log(tag);
@@ -30,7 +30,7 @@ app.get('/hashtag/:hashtag', async (req, res) => {
 });
 
 app.get('/user/:user/:count/:byUserId', async (req, res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const username = req.params.username
     const count = req.params.count as unknown as number
     const byUserId = req.params.water as unknown as boolean
@@ -40,7 +40,7 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
 });
 
 app.get('/trend/:count', async (req, res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const count = req.params.count as unknown as number
     const posts = await trend('', { number: count, proxy: proxyList });
     console.log(posts);
@@ -48,7 +48,7 @@ app.get('/trend/:count', async (req, res) => {
 });
 
 app.get('/profile/:username', async (req, res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const username = req.params.username
     const userInfo = await getUserProfileInfo(username, {proxy: proxyList});
     console.log(userInfo);
@@ -56,7 +56,7 @@ app.get('/profile/:username', async (req, res) => {
 });
 
 app.post('/video', async (req,res) => {
-    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123'];
+    const proxyList: string[] = ['189.170.79.21:8080', '123.101.207.33:9999', '159.8.114.34:8123', 'socks5://178.162.202.44:1667'];
     const videoUrl = req.body.videoUrl;
     console.log(videoUrl);
     try {
