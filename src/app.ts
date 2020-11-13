@@ -95,9 +95,9 @@ app.post('/video', async (req, res) => {
 
 app.get('/video/:videoId', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
-    const videoId = req.params.videoId
+    const videoUrl = 'https://www.tiktok.com/@tiktok/video/' + req.params.videoId
     try {
-        const videoPost = await video(videoId, {proxy: proxyList, noWaterMark: true});
+        const videoPost = await getVideoMeta(videoUrl, {proxy: proxyList, noWaterMark: true});
         console.log(videoPost);
         res.send(videoPost);
     } catch (error) {
