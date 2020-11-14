@@ -11,6 +11,18 @@ app.use(bodyParser.json({
     }
 }));
 
+app.get('/trend', async (req, res) => {
+    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    try {
+        const posts = await trend('', {noWaterMark: true, proxy: proxyList });
+        console.log(posts);
+        res.send(posts);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
 app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
