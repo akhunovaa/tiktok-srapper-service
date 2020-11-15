@@ -1,6 +1,6 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
-import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, video} from 'tiktok-scraper';
+import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, getMusicInfo} from 'tiktok-scraper';
 
 
 const app = express();
@@ -112,6 +112,19 @@ app.get('/video/:videoId', async (req, res) => {
         const videoPost = await getVideoMeta(videoUrl, {proxy: proxyList, noWaterMark: true});
         console.log(videoPost);
         res.send(videoPost);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
+app.get('/music/:musicId', async (req, res) => {
+    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const musicUrl = 'https://www.tiktok.com/music/original-sound-' + req.params.musicId
+    try {
+        const musicPost = await getMusicInfo(musicUrl, {proxy: proxyList, noWaterMark: true});
+        console.log(musicPost);
+        res.send(musicPost);
     } catch (error) {
         console.log(error);
         res.send(error);
