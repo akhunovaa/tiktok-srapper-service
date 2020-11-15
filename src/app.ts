@@ -14,7 +14,7 @@ app.use(bodyParser.json({
 app.get('/trend', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     try {
-        const posts = await trend('', {noWaterMark: true, proxy: proxyList });
+        const posts = await trend('', {number: 6, noWaterMark: true, proxy: proxyList });
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -42,7 +42,7 @@ app.get('/hashtag/:hashtag', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
     try {
-        const tag = await getHashtagInfo(tagValue, {proxy: proxyList});
+        const tag = await getHashtagInfo(tagValue, {noWaterMark: true, proxy: proxyList});
         console.log(tag);
         res.send(tag);
     } catch (error) {
@@ -57,7 +57,7 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
     const count = req.params.count as unknown as number
     const byUserId = req.params.water as unknown as boolean
     try {
-        const posts = await user(username, {number: count, by_user_id: byUserId, proxy: proxyList});
+        const posts = await user(username, {number: count, noWaterMark: true, by_user_id: byUserId, proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -70,7 +70,7 @@ app.get('/trend/:count', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const count = req.params.count as unknown as number
     try {
-        const posts = await trend('', {number: count, proxy: proxyList});
+        const posts = await trend('', {number: count, noWaterMark: true, proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
