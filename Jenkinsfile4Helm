@@ -38,6 +38,24 @@ pipeline {
             }
         }
 
+        stage('Pre-pre-Build') {
+            steps {
+                echo 'Installing dependencies'
+                nodejs('Node 10.15.0 LTS') {
+                    sh 'rm -rf dist/* && tslint -c tslint.json -p tsconfig.json --fix'
+                }
+            }
+        }
+
+        stage('Pre-pre-Build-2') {
+            steps {
+                echo 'Installing dependencies'
+                nodejs('Node 10.15.0 LTS') {
+                    sh 'tsc && cp -rf package.json dist/package.json'
+                }
+            }
+        }
+
         stage('Pre-Build') {
             steps {
                 echo 'Pre-Building'
