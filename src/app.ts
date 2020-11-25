@@ -23,6 +23,20 @@ app.get('/trend', async (req, res) => {
     }
 });
 
+app.get('/trend/:count', async (req, res) => {
+    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const count = req.params.count as unknown as number
+    try {
+        const posts = await trend('', {number: count, noWaterMark: true, proxy: proxyList});
+        console.log(posts);
+        res.send(posts);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
+
 app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
@@ -58,19 +72,6 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
     const byUserId = req.params.water as unknown as boolean
     try {
         const posts = await user(username, {number: count, noWaterMark: true, by_user_id: byUserId, proxy: proxyList});
-        console.log(posts);
-        res.send(posts);
-    } catch (error) {
-        console.log(error);
-        res.send(error);
-    }
-});
-
-app.get('/trend/:count', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
-    const count = req.params.count as unknown as number
-    try {
-        const posts = await trend('', {number: count, noWaterMark: true, proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
