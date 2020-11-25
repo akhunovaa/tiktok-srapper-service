@@ -34,15 +34,7 @@ pipeline {
                 echo 'Installing dependencies'
                 nodejs('Node 10.15.0 LTS') {
                     sh 'npm install -D @types/progress'
-                }
-            }
-        }
-
-        stage('Pre-pre-Build') {
-            steps {
-                echo 'Installing dependencies'
-                nodejs('Node 10.15.0 LTS') {
-                    sh 'rm -rf dist/*'
+                    sh 'npm i -g tiktok-scraper'
                 }
             }
         }
