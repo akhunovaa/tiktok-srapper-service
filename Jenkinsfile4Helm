@@ -43,7 +43,6 @@ pipeline {
                 echo 'Pre-Building'
                 nodejs('Node 10.15.0 LTS') {
                     sh 'npm run-script prebuild'
-                    sh 'npm install @types/progress'
                 }
             }
         }
