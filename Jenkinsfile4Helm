@@ -42,7 +42,7 @@ pipeline {
             steps {
                 echo 'Installing dependencies'
                 nodejs('Node 10.15.0 LTS') {
-                    sh 'rm -rf dist/* && tslint -c tslint.json -p tsconfig.json --fix'
+                    sh 'rm -rf dist/*'
                 }
             }
         }
