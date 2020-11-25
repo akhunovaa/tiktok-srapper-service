@@ -54,7 +54,6 @@ pipeline {
             steps {
                 echo 'Building npm'
                 nodejs('Node 10.15.0 LTS') {
-                    sh 'npm i -g tiktok-scraper'
                     sh 'npm run-script build'
                 }
             }
