@@ -12,9 +12,9 @@ app.use(bodyParser.json({
 }));
 
 app.get('/trend', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     try {
-        const posts = await trend('', {number: 6, noWaterMark: false});
+        const posts = await trend('', {number: 6, noWaterMark: false, proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -24,10 +24,10 @@ app.get('/trend', async (req, res) => {
 });
 
 app.get('/trend/:count', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const count = req.params.count as unknown as number
     try {
-        const posts = await trend('', {number: count, noWaterMark: false});
+        const posts = await trend('', {number: count, noWaterMark: false, proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -38,12 +38,12 @@ app.get('/trend/:count', async (req, res) => {
 
 
 app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
     try {
-        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: false });
+        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: false, proxy: proxyList });
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -53,10 +53,10 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
 });
 
 app.get('/hashtag/:hashtag', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
     try {
-        const tag = await getHashtagInfo(tagValue, {noWaterMark: false});
+        const tag = await getHashtagInfo(tagValue, {noWaterMark: false, proxy: proxyList});
         console.log(tag);
         res.send(tag);
     } catch (error) {
@@ -66,7 +66,7 @@ app.get('/hashtag/:hashtag', async (req, res) => {
 });
 
 app.get('/user/:user/:count/:byUserId', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const username = req.params.username
     const count = req.params.count as unknown as number
     const byUserId = req.params.water as unknown as boolean
@@ -81,7 +81,7 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
 });
 
 app.get('/profile/:username', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const username = req.params.username
     try {
         const userInfo = await getUserProfileInfo(username);
@@ -94,10 +94,10 @@ app.get('/profile/:username', async (req, res) => {
 });
 
 app.post('/video', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = req.body.videoUrl;
     try {
-        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: false});
+        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: false, proxy: proxyList});
         console.log(videoMeta);
         res.send(videoMeta);
     } catch (error) {
@@ -107,10 +107,10 @@ app.post('/video', async (req, res) => {
 });
 
 app.get('/video/:videoId', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = 'https://www.tiktok.com/@tiktok/video/' + req.params.videoId
     try {
-        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: false});
+        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: false, proxy: proxyList});
         console.log(videoPost);
         res.send(videoPost);
     } catch (error) {
@@ -120,10 +120,10 @@ app.get('/video/:videoId', async (req, res) => {
 });
 
 app.get('/music/:musicId', async (req, res) => {
-    const proxyList: string[] = ['C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const musicUrl = 'https://www.tiktok.com/music/original-sound-' + req.params.musicId
     try {
-        const musicPost = await getMusicInfo(musicUrl, { noWaterMark: false});
+        const musicPost = await getMusicInfo(musicUrl, { noWaterMark: false, proxy: proxyList});
         console.log(musicPost);
         res.send(musicPost);
     } catch (error) {
