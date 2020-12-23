@@ -4,4 +4,4 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY . /app
 
-CMD npm run start
+CMD ts-node .
