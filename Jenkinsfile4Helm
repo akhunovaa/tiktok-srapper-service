@@ -36,7 +36,7 @@ pipeline {
                     sh 'npm install -D @types/progress'
                     sh 'npm i -g tiktok-scraper'
                     sh 'npm i -g soundcloud-scraper'
-                    sh 'npm install -g install-peerdeps install-peerdeps --dev eslint-config-airbnb'
+                    sh 'npm install -g install-peerdeps install-peerdeps'
                     sh 'npm install'
                 }
             }
