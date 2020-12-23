@@ -157,9 +157,9 @@ app.post('/sound/download', async (req, res) => {
     const client = new SoundCloud.Client("NpVHurnc1OKS80l6zlXrEVN4VEXrbZG4");
     const fs = require("fs");
     try {
-        const musicMeta = client.getSongInfo(musicUrl);
-        const stream = musicMeta.downloadProgressive();
-        const writer = stream.pipe(fs.createWriteStream(`${musicSavePath}/${musicMeta.id}.mp3`));
+        const musicMeta = await client.getSongInfo(musicUrl);
+        const stream = await musicMeta.downloadProgressive();
+        const writer = await stream.pipe(fs.createWriteStream(`${musicSavePath}/${musicMeta.id}.mp3`));
         writer.on("finish", () => {
             console.log("Finished writing song!")
         });
