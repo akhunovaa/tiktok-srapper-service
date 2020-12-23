@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "module": "commonjs",
-    "target": "es6",
     "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "dist"
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
   },
-  "include": [
-    "src/**/*"
+  "files": [
+    "core.ts",
+    "sys.ts",
+    "types.ts",
+    "scanner.ts",
+    "parser.ts",
+    "utilities.ts",
+    "binder.ts",
+    "checker.ts",
+    "emitter.ts",
+    "program.ts",
+    "commandLineParser.ts",
+    "tsc.ts",
+    "diagnosticInformationMap.generated.ts"
   ]
 }
