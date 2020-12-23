@@ -32,7 +32,7 @@ pipeline {
         stage('NPM Dependencies Install') {
             steps {
                 echo 'Installing dependencies'
-                nodejs('Node 10.15.0 LTS') {
+                nodejs('Node 10.15.1') {
                     sh 'npm install -D @types/progress'
                     sh 'npm i -g tiktok-scraper'
                     sh 'npm i -g soundcloud-scraper'
@@ -45,7 +45,7 @@ pipeline {
         stage('Pre-Build') {
             steps {
                 echo 'Pre-Building'
-                nodejs('Node 10.15.0 LTS') {
+                nodejs('Node 10.15.1') {
                     sh 'npm run-script prebuild'
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building npm'
-                nodejs('Node 10.15.0 LTS') {
+                nodejs('Node 10.15.1') {
                     sh 'npm run-script build'
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
         stage('Pre-Start') {
             steps {
                 echo 'Pre-starting'
-                nodejs('Node 10.15.0 LTS') {
+                nodejs('Node 10.15.1') {
                     sh 'npm run-script prestart'
                 }
             }
