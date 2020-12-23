@@ -46,7 +46,6 @@ pipeline {
             steps {
                 echo 'Pre-Building'
                 nodejs('Node 10.15.0 LTS') {
-                    sh './node_modules/.bin/tslint --project "."'
                     sh 'npm run-script prebuild'
                 }
             }
