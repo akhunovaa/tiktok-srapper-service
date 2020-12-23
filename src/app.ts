@@ -159,10 +159,17 @@ app.post('/sound/download', async (req, res) => {
     try {
         const musicMeta = await client.getSongInfo(musicUrl);
         const stream = await musicMeta.downloadProgressive();
-        const writer = await stream.pipe(fs.createWriteStream(`${musicSavePath}/${musicMeta.id}.mp3`));
-        writer.on("finish", () => {
-            console.log("Finished writing song!")
-        });
+
+        try {
+            if (!fs.existsSync(`${musicSavePath}/${musicMeta.id}.mp3`)) {
+                const writer = await stream.pipe(fs.createWriteStream(`${musicSavePath}/${musicMeta.id}.mp3`));
+                writer.on("finish", () => {
+                    console.log("Finished writing song!")
+                });
+            }
+        } catch(err) {
+            console.error(err)
+        }
         console.log(musicMeta);
         res.send(musicMeta);
     } catch (error) {
