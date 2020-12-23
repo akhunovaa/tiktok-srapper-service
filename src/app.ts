@@ -153,6 +153,7 @@ app.post('/sound/download', async (req, res) => {
     const musicSavePath = '/home/repository/sound';
     // const musicSavePath = '/Users/azatakhunov/temp/repository/sound';
     const musicUrl = req.body.musicUrl;
+    console.log(musicUrl)
     const SoundCloud = require("soundcloud-scraper");
     const client = new SoundCloud.Client("NpVHurnc1OKS80l6zlXrEVN4VEXrbZG4");
     const fs = require("fs");
