@@ -2,8 +2,6 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, getMusicInfo} from 'tiktok-scraper';
 
-import normalizeUrl from "normalize-url";
-import SoundCloud from "soundcloud-scraper";
 
 const app = express();
 app.use(bodyParser.json({
@@ -137,7 +135,6 @@ app.get('/music/:musicId', async (req, res) => {
 app.post('/sound', async (req, res) => {
     // const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const musicUrl = req.body.musicUrl;
-    // tslint:disable-next-line:no-shadowed-variable
     const SoundCloud = require("soundcloud-scraper");
     const client = new SoundCloud.Client("NpVHurnc1OKS80l6zlXrEVN4VEXrbZG4");
 
@@ -153,15 +150,15 @@ app.post('/sound', async (req, res) => {
 
 app.post('/sound/download', async (req, res) => {
     // const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
-    const musicSavePath = '/home/repository/sound';
-    // const musicSavePath = '/Users/azatakhunov/temp/repository/sound';
-    const musicUrl = await normalizeUrl(req.body.musicUrl);
-    console.log(musicUrl)
+    // const musicSavePath = '/home/repository/sound';
+    const musicSavePath = '/Users/azatakhunov/temp/repository/sound';
+    const musicUrl = req.body.musicUrl;
+    const SoundCloud = require("soundcloud-scraper");
     const client = new SoundCloud.Client("NpVHurnc1OKS80l6zlXrEVN4VEXrbZG4");
     const fs = require("fs");
     try {
-        const musicMeta = await client.getSongInfo(musicUrl).catch(console.error);
-        const stream = await musicMeta.downloadProgressive().catch(console.error);
+        const musicMeta = await client.getSongInfo(musicUrl);
+        const stream = await musicMeta.downloadProgressive();
         const writer = await stream.pipe(fs.createWriteStream(`${musicSavePath}/${musicMeta.id}.mp3`));
         writer.on("finish", () => {
             console.log("Finished writing song!")
