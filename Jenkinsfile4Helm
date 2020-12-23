@@ -34,6 +34,7 @@ pipeline {
                 echo 'Installing dependencies'
                 nodejs('Node 10.15.0 LTS') {
                     sh 'npm install -D @types/progress'
+                    sh 'npm i soundcloud-scraper'
                     sh 'npm i -g tiktok-scraper'
                     sh 'npm install'
                 }
