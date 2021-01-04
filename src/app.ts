@@ -14,7 +14,7 @@ app.use(bodyParser.json({
 app.get('/trend', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     try {
-        const posts = await trend('', {number: 25, noWaterMark: true, proxy: proxyList});
+        const posts = await trend('', {number: 25, noWaterMark: true, verifyFp: '', proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -27,7 +27,7 @@ app.get('/trend/:count', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const count = req.params.count as unknown as number
     try {
-        const posts = await trend('', {number: count, noWaterMark: true, proxy: proxyList});
+        const posts = await trend('', {number: count, noWaterMark: true, verifyFp: '', proxy: proxyList});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -43,7 +43,7 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
     try {
-        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: true, proxy: proxyList });
+        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: true, verifyFp: '', proxy: proxyList });
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -56,7 +56,7 @@ app.get('/hashtag/:hashtag', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
     try {
-        const tag = await getHashtagInfo(tagValue, {noWaterMark: true, proxy: proxyList});
+        const tag = await getHashtagInfo(tagValue, {noWaterMark: true, verifyFp: '', proxy: proxyList});
         console.log(tag);
         res.send(tag);
     } catch (error) {
@@ -84,7 +84,8 @@ app.get('/profile/:username', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const username = req.params.username
     try {
-        const userInfo = await getUserProfileInfo(username);
+        // const userInfo = await getUserProfileInfo(username);
+        const userInfo = await user(username);
         console.log(userInfo);
         res.send(userInfo);
     } catch (error) {
@@ -97,7 +98,7 @@ app.post('/video', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = req.body.videoUrl;
     try {
-        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: true, proxy: proxyList});
+        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: true, verifyFp: '', proxy: proxyList});
         console.log(videoMeta);
         res.send(videoMeta);
     } catch (error) {
@@ -110,7 +111,7 @@ app.get('/video/:videoId', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = 'https://www.tiktok.com/@tiktok/video/' + req.params.videoId
     try {
-        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: false, verifyFp: '', proxy: proxyList});
+        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: true, verifyFp: '', proxy: proxyList});
         console.log(videoPost);
         res.send(videoPost);
     } catch (error) {
