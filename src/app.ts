@@ -1,6 +1,14 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
-import {hashtag, user, trend, getUserProfileInfo, getHashtagInfo, getVideoMeta, getMusicInfo} from 'tiktok-scraper';
+import {
+    hashtag,
+    user,
+    trend,
+    getHashtagInfo,
+    getVideoMeta,
+    getMusicInfo,
+    trendEvent
+} from 'tiktok-scraper';
 
 
 const app = express();
@@ -14,7 +22,19 @@ app.use(bodyParser.json({
 app.get('/trend', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     try {
-        const posts = await trend('', {number: 25, noWaterMark: true, verifyFp: '', proxy: proxyList});
+        const posts = await trend('', {number: 25, noWaterMark: false, verifyFp: ''});
+        console.log(posts);
+        res.send(posts);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
+app.get('/trendEvent', async (req, res) => {
+    const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
+    try {
+        const posts = await trendEvent('', {number: 25, noWaterMark: false, verifyFp: ''});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -27,7 +47,7 @@ app.get('/trend/:count', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const count = req.params.count as unknown as number
     try {
-        const posts = await trend('', {number: count, noWaterMark: true, verifyFp: '', proxy: proxyList});
+        const posts = await trend('', {number: count, noWaterMark: false, verifyFp: ''});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -43,7 +63,7 @@ app.get('/hashtag/:hashtag/:cursor/:water', async (req, res) => {
     const cursor = req.params.cursor as unknown as number
     const water = req.params.water as unknown as boolean
     try {
-        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: true, verifyFp: '', proxy: proxyList });
+        const posts = await hashtag(tagValue, { number: cursor, noWaterMark: false, verifyFp: ''});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -56,7 +76,7 @@ app.get('/hashtag/:hashtag', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const tagValue = req.params.hashtag
     try {
-        const tag = await getHashtagInfo(tagValue, {noWaterMark: true, verifyFp: '', proxy: proxyList});
+        const tag = await getHashtagInfo(tagValue, {noWaterMark: false, verifyFp: ''});
         console.log(tag);
         res.send(tag);
     } catch (error) {
@@ -71,7 +91,7 @@ app.get('/user/:user/:count/:byUserId', async (req, res) => {
     const count = req.params.count as unknown as number
     const byUserId = req.params.water as unknown as boolean
     try {
-        const posts = await user(username, {number: count, noWaterMark: true, verifyFp: '', by_user_id: byUserId});
+        const posts = await user(username, {number: count, noWaterMark: false, verifyFp: '', by_user_id: byUserId});
         console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -98,7 +118,7 @@ app.post('/video', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = req.body.videoUrl;
     try {
-        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: true, verifyFp: '', proxy: proxyList});
+        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: false, verifyFp: ''});
         console.log(videoMeta);
         res.send(videoMeta);
     } catch (error) {
@@ -111,7 +131,7 @@ app.get('/video/:videoId', async (req, res) => {
     const proxyList: string[] = ['05JAsv:dLW40U@194.62.30.31:8000', 'C6sSbU:zWeGcu@45.132.20.183:8000', 'C6sSbU:zWeGcu@45.132.22.155:8000', 'EWKspn:mXKd86@194.242.124.40:8000', 'q29LDc:vwmFqk@194.242.125.1:8000', 'q29LDc:vwmFqk@194.242.125.105:8000'];
     const videoUrl = 'https://www.tiktok.com/@tiktok/video/' + req.params.videoId
     try {
-        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: true, verifyFp: '', proxy: proxyList});
+        const videoPost = await getVideoMeta(videoUrl, {noWaterMark: false, verifyFp: ''});
         console.log(videoPost);
         res.send(videoPost);
     } catch (error) {
