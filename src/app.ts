@@ -144,8 +144,11 @@ app.get('/video/:videoId', async (req, res) => {
 
 app.get('/music/:musicId', async (req, res) => {
     const proxyList: string[] = ['hZ126F:6UqVBU@45.10.248.38:8000'];
-    const musicUrl = 'https://www.tiktok.com/music/original-sound-' + req.params.musicId
+    // const musicUrl = 'https://www.tiktok.com/music/original-sound-' + req.params.musicId
+    const musicUrl = 'https://www.tiktok.com/music/Say-So-' + req.params.musicId + '?lang=en'
     try {
+        //  const posts = await music('6548327243720952577', { number: 1, sessionList: ['sid_tt=asdasd13123123123adasda;'] });
+        //      const musicMeta = await getMusicInfo('https://www.tiktok.com/music/Say-So-6763054442704145158?lang=en', {});
         const musicPost = await getMusicInfo(musicUrl, {proxy: proxyList});
         console.log(musicPost);
         res.send(musicPost);
