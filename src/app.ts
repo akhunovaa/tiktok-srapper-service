@@ -133,7 +133,7 @@ app.get('/video/:videoId', async (req, res) => {
     // const proxyList: string[] = ['hZ126F:6UqVBU@45.10.248.38:8000'];
     const videoUrl = 'https://www.tiktok.com/@tiktok/video/' + req.params.videoId
     try {
-        const videoPost = await getVideoMeta(videoUrl, {hdVideo: true, noWaterMark: true, verifyFp: ''});
+        const videoPost = await getVideoMeta(videoUrl, {verifyFp: ''});
         console.log(videoPost);
         res.send(videoPost);
     } catch (error) {
