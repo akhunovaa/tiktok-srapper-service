@@ -120,7 +120,7 @@ app.post('/video', async (req, res) => {
     // const proxyList: string[] = ['hZ126F:6UqVBU@45.10.248.38:8000'];
     const videoUrl = req.body.videoUrl;
     try {
-        const videoMeta = await getVideoMeta(videoUrl, {noWaterMark: true, verifyFp: ''});
+        const videoMeta = await getVideoMeta(videoUrl, {hdVideo: true, noWaterMark: true, verifyFp: ''});
         console.log(videoMeta);
         res.send(videoMeta);
     } catch (error) {
