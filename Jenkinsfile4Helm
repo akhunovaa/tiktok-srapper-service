@@ -38,6 +38,7 @@ pipeline {
                     sh 'npm i -g tiktok-scraper'
                     sh 'npm i -g soundcloud-scraper'
                     sh 'npm install -g install-peerdeps install-peerdeps'
+                    sh 'npm install @types/request'
                 }
             }
         }
